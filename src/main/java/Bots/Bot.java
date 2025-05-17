@@ -1,8 +1,10 @@
 package Bots;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -18,6 +20,7 @@ public class Bot {
             .ignoring(NotFoundException.class)
             .ignoring(ElementNotInteractableException.class)
             .ignoring(AssertionError.class)
+            .ignoring(ElementClickInterceptedException.class)
             .ignoring(StaleElementReferenceException.class);
 
     public static void clicking(WebDriver driver, By locator){
@@ -26,6 +29,12 @@ public class Bot {
             return true;
         } );
     }
+
+    public static void jsClick(WebDriver driver, By locator) {
+        WebElement element = driver.findElement(locator);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
 
     public static void enterText(WebDriver driver, By locator, String text){
         wait.until(f->{
@@ -49,6 +58,35 @@ public class Bot {
         } catch (TimeoutException e) {
             return false; // Element not visible within 10 seconds
         }
+    }
+
+    public static void hoverAndClick(WebDriver driver, By hoverLocator, By clickLocator) {
+        wait.until(f -> {
+            WebElement hoverElement = driver.findElement(hoverLocator);
+            Actions actions = new Actions(driver);
+            actions.moveToElement(hoverElement).perform();
+
+            WebElement clickElement = driver.findElement(clickLocator);
+            clickElement.click();
+
+            return true;
+        });
+    }
+
+    public static void scrollDown(WebDriver driver,By tillElement){
+
+        WebElement element = driver.findElement(tillElement);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(false);", element);
+
+    }
+
+    public static void selectFromDropDown(WebDriver driver, By dropDownElement, String text){
+        wait.until(f->{
+            WebElement dropdown = driver.findElement(dropDownElement);
+            Select select = new Select(dropdown);
+            select.deselectByVisibleText(text);
+            return true;
+        });
     }
 
 }

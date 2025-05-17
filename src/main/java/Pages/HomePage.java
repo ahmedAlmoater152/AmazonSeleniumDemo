@@ -16,6 +16,10 @@ public class HomePage {
     By logindirectButton             = By.xpath("//div[@id='nav-link-accountList']");
     By hamburgerMenu                 = By.id("nav-hamburger-menu");
     By singinOptioninHamburgerMenu   = By.xpath("//li/a[contains(text(),'Sign in')]");
+    By languageNavigator             = By.id("icp-nav-flyout");
+    By englishLanguage               = By.xpath("(//a[@lang='en-AE'])[1]");
+    By logOutFromAccount             = By.id("nav-item-signout");
+
 
 
     //Methods
@@ -27,6 +31,16 @@ public class HomePage {
         Bot.clicking(driver,hamburgerMenu);
         Bot.isVisible(driver,singinOptioninHamburgerMenu);
         Bot.clicking(driver,singinOptioninHamburgerMenu);
+    }
+
+    public void changeLanguageToEnglish(){
+        Bot.isVisible(driver,languageNavigator);
+        Bot.hoverAndClick(driver,languageNavigator,englishLanguage);
+    }
+
+    public void hoverAndClickLogout(){
+        Bot.isVisible(driver,logindirectButton);
+        Bot.hoverAndClick(driver,logindirectButton,logOutFromAccount);
     }
 
 }
