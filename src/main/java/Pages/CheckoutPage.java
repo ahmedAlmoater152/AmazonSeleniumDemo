@@ -3,11 +3,14 @@ package Pages;
 import Bots.Bot;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class CheckoutPage {
     WebDriver driver;
     Faker faker = new Faker();
+    JavascriptExecutor js = (JavascriptExecutor) driver;
     public CheckoutPage(WebDriver driver){this.driver=driver;}
 
 
@@ -24,6 +27,8 @@ public class CheckoutPage {
     By editAddress              = By.id("edit-address-desktop-tango-sasp-0");
     By popupHeader              = By.xpath("//h2[text()='Edit your shipping address']");
     By useThisAddress           = By.xpath("//input[@data-csa-c-slot-id='address-ui-widgets-continue-edit-address-btn-bottom']");
+    By cashPayment              = By.id("pp-aVMi8m-81");
+
 
     //Methods
     public void isHeaderDisplayed(){
@@ -101,6 +106,23 @@ public class CheckoutPage {
 
     public void clearDistrict(){
         Bot.clearText(driver,district);
+    }
+
+    public void enableAndSelectCashPayment() {
+        WebElement cashPaymentOption = driver.findElement(cashPayment);
+        js.executeScript("arguments[0].scrollIntoView(true);", cashPaymentOption);
+        try {
+            if (!cashPaymentOption.isEnabled()) {
+                js.executeScript("arguments[0].removeAttribute('disabled');", cashPaymentOption);
+                System.out.println("Cash payment option enabled via JavaScript.");
+            }
+
+            cashPaymentOption.click();
+            System.out.println("Cash payment option selected.");
+
+        } catch (Exception e) {
+            System.out.println("Failed to enable or select Cash payment option: " + e.getMessage());
+        }
     }
 
 

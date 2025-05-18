@@ -31,7 +31,7 @@ public class VideoGamesWithFiltersAndSortByPriceTest {
     CheckoutPage checkout;
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp() throws InterruptedException {
         driver           = new ChromeDriver();
         homePage         = new HomePage(driver);
         signIn           = new SignInPage(driver);
@@ -43,12 +43,7 @@ public class VideoGamesWithFiltersAndSortByPriceTest {
         checkout         = new CheckoutPage(driver);
         driver.manage().window().maximize();
         driver.get(baseURL);
-    }
 
-    @Epic("VideoGamesShopping")
-    @Feature("Video Games shopping With Filters")
-    @Test(testName = "Video games with new and free shipping Filters And SortByPrice Test" )
-    public void VideoGamesShoppingTest() throws InterruptedException {
         homePage.clickingDirectLogin();
         signIn.setMobileOrEmailTextBox("1212812127");
         signIn.selectEgyptCode();
@@ -57,6 +52,12 @@ public class VideoGamesWithFiltersAndSortByPriceTest {
         signIn.clickingSignIn();
         main.goToCart();
         cart.clearCart(driver);
+    }
+
+    @Epic("VideoGamesShopping")
+    @Feature("Video Games shopping With Filters")
+    @Test(testName = "Video games with new and free shipping Filters And SortByPrice Test" )
+    public void VideoGamesShoppingTest() throws InterruptedException {
         main.clickingAllmenu();
         main.clickingSeeAll();
         main.scrollingDownToVideoGamesOption();
@@ -95,10 +96,13 @@ public class VideoGamesWithFiltersAndSortByPriceTest {
         checkout.setBuildingNum();
         checkout.setAddressCity();
         checkout.clickingUseThisAddress();
-//      homePage.hoverAndClickLogout();
+//      checkout.enableAndSelectCashPayment();
     }
 
     @AfterMethod
-    public void tearDown(){driver.quit();}
+    public void tearDown(){
+//      homePage.hoverAndClickLogout();
+        driver.quit();
+    }
 
 }
