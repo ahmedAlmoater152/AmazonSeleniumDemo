@@ -39,6 +39,7 @@ public class HomePage {
     }
 
     public void hoverAndClickLogout(){
+        Bot.scrollDown(driver,logindirectButton);
         Bot.isVisible(driver,logindirectButton);
         Bot.hoverAndClick(driver,logindirectButton,logOutFromAccount);
     }

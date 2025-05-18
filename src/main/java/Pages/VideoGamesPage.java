@@ -1,8 +1,12 @@
 package Pages;
 
 import Bots.Bot;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class VideoGamesPage {
     WebDriver driver;
@@ -25,4 +29,11 @@ public class VideoGamesPage {
     public void clickingHighToLow(){
         Bot.clicking(driver,highToLowOption);
     }
+
+    public Map<String, Integer> addingProductsWithPriceCondition(WebDriver driver, int maxPrice) throws InterruptedException {
+        return Bot.addFirstPageValidProducts(driver,maxPrice);
+    }
+
+    public void goToCartpage(){Bot.goToCart(driver);}
+
 }

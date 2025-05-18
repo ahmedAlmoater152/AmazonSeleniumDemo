@@ -19,7 +19,7 @@ public class MainNavigationMenu {
     By mobileTab                     = By.xpath("//a[text()='Mobile Phones']");
     By homeTab                       = By.xpath("//a[text()='Home']");
     By fashionTab                    = By.xpath("//a[text()='Fashion']");
-
+    By cartNav                       = By.id("nav-cart");
 
     //Methods
     public void clickingAllmenu(){
@@ -46,6 +46,14 @@ public class MainNavigationMenu {
 
     public void scrollingDownToVideoGamesOption(){
         Bot.scrollDown(driver,videoGamesOption);
+    }
+
+    public void goToCart(){
+        Bot.clicking(driver,cartNav);
+    }
+
+    public void goBack(){
+        Bot.goBack();
     }
 
 }
